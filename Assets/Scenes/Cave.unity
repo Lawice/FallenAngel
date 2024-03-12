@@ -413,8 +413,11 @@ MonoBehaviour:
   jumpNb: 0
   jumpMax: 2
   jumpForce: 10
-  magazineSize: 0
-  bulletLeft: 0
+  _shootPoint: {fileID: 90996373}
+  _bulletPrefab: {fileID: 1022512547073241637, guid: c5e1bfa5a4a2d8d40be9ed9c29630de3, type: 3}
+  magazineSize: 12
+  bulletLeft: 12
+  bulletSpeed: 0
   speed: 12
 --- !u!50 &1552998083
 Rigidbody2D:

@@ -20,7 +20,7 @@ public class ScPlayerMovement : MonoBehaviour {
     [SerializeField] GameObject _bulletPrefab;
     public int magazineSize;
     public int bulletLeft;
-    public float recoilForce;
+    public float bulletSpeed;
 
     [Header("Mouvements")]
     public float speed;
@@ -60,7 +60,7 @@ public class ScPlayerMovement : MonoBehaviour {
 
     private void Shoot() {
         if (bulletLeft > 0){
-            if (!IsAbleToJump ) { _body.velocity = new Vector2(_body.velocity.x, 0f); }
+            if (!IsAbleToJump ) { _body.velocity = new Vector2(_body.velocity.x, 0.5f); }
             GameObject bullet = Instantiate(_bulletPrefab, _shootPoint.position,Quaternion.identity);
             Destroy(bullet, 2f);
             bulletLeft--;
