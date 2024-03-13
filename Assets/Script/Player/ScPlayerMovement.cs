@@ -14,25 +14,24 @@ public class ScPlayerMovement : MonoBehaviour {
     public int jumpMax;
     public float jumpForce;
     private bool IsGrounded;
-
-    [Header("Bullet Jump")]
-    [SerializeField] Transform _shootPoint;
-    [SerializeField] GameObject _bulletPrefab;
-    public int magazineSize;
-    public int bulletLeft;
-    public float bulletSpeed;
+    private bool IsWalled;
 
     [Header("Mouvements")]
     public float speed;
     private float horizontal;
+    
+    public static ScPlayerMovement Instance;
+    private void Awake() {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(this); }
+    }
 
     private void Start(){
         _body = GetComponent<Rigidbody2D>();
-        bulletLeft = magazineSize;
     }
 
     private void Update() {
-        if (IsGrounded) { jumpNb = 0; IsAbleToJump = true; bulletLeft = magazineSize; }
+        if (IsGrounded) { jumpNb = 0; IsAbleToJump = true; ScShoot.Instance.Reload(); }
         if (jumpNb >= jumpMax) { IsAbleToJump = false; }
         _body.velocity = new Vector2(horizontal * speed, _body.velocity.y);
     }
@@ -44,10 +43,8 @@ public class ScPlayerMovement : MonoBehaviour {
                 jumpNb++;
                 _body.velocity = new Vector2(_body.velocity.x, jumpForce);
             }
-            if (jumpNb == jumpMax) { Shoot(); }
-            
+            if (jumpNb == jumpMax) { ScShoot.Instance.Shoot(); }
         }
-
     }
 
     public void SideMovement(InputAction.CallbackContext ctx) {
@@ -55,15 +52,13 @@ public class ScPlayerMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("ground")) {IsGrounded = true;}
-    }
-
-    private void Shoot() {
-        if (bulletLeft > 0){
-            if (!IsAbleToJump ) { _body.velocity = new Vector2(_body.velocity.x, 0.5f); }
-            GameObject bullet = Instantiate(_bulletPrefab, _shootPoint.position,Quaternion.identity);
-            Destroy(bullet, 2f);
-            bulletLeft--;
+        if (collision.gameObject.TryGetComponent(out ScGround component)) {
+            if (component.type != ScGround.BlockType.wall) {
+                IsGrounded = true;
+            }
+            else { 
+                IsWalled = true;
+            }
         }
     }
 }
