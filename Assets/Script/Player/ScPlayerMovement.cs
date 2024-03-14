@@ -19,8 +19,11 @@ public class ScPlayerMovement : MonoBehaviour {
     [Header("Mouvements")]
     public float speed;
     private float horizontal;
+    public enum Facing { Left, Right};
+    public Facing facing = Facing.Right;
     
     public static ScPlayerMovement Instance;
+    private SpriteRenderer _spriteRenderer;
     private void Awake() {
         if (Instance == null) { Instance = this; }
         else { Destroy(this); }
@@ -28,18 +31,29 @@ public class ScPlayerMovement : MonoBehaviour {
 
     private void Start(){
         _body = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update() {
         if (IsGrounded) { jumpNb = 0; IsAbleToJump = true; ScShoot.Instance.Reload(); }
+        if (IsWalled) { jumpNb = 0; IsAbleToJump = true; }
         if (jumpNb >= jumpMax) { IsAbleToJump = false; }
         _body.velocity = new Vector2(horizontal * speed, _body.velocity.y);
+        if (horizontal < 0){
+            _spriteRenderer.flipX = true;
+            facing = Facing.Left;
+        }
+        else if (horizontal > 0) {
+            _spriteRenderer.flipX = false;
+            facing = Facing.Right;
+        }
     }
 
     public void Jump(InputAction.CallbackContext ctx) {
         if (ctx.performed) {
             if (IsAbleToJump) {
                 IsGrounded = false;
+                IsWalled = false;
                 jumpNb++;
                 _body.velocity = new Vector2(_body.velocity.x, jumpForce);
             }
