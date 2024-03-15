@@ -112,7 +112,7 @@ public class ScShoot : MonoBehaviour{
                 bulletShoot = 1;
                 _bulletDamage = 4;
                 _bulletID = 4;
-                _ballGravityScale = 1;
+                _ballGravityScale = 2;
                 break;
             case GunType.shotgun:
                 chargesUse = 6;

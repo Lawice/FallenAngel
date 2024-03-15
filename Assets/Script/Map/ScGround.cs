@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScGround : MonoBehaviour {
-    public enum BlockType { normal, semi, breakable, wall}
+    public enum BlockType { normal, semi, breakable, wall, crate}
     public BlockType type;
     SpriteRenderer spriteRenderer;
 
@@ -11,7 +11,11 @@ public class ScGround : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Update() {
+    public void Start() {
+        UpdateColor();
+    }
+
+    void UpdateColor() {
         switch (type) {
             case BlockType.normal:
                 spriteRenderer.color = Color.green;
@@ -24,6 +28,9 @@ public class ScGround : MonoBehaviour {
                 break;
             case BlockType.wall:
                 spriteRenderer.color = Color.white;
+                break;
+            case BlockType.crate:
+                spriteRenderer.color = Color.red;
                 break;
 
         }
