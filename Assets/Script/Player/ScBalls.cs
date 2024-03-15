@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ScBalls : MonoBehaviour {
     private Collider2D _ballCollider;
+    private Rigidbody2D _ballBody;
     public int damage;
-    public float speed;
+    public float gravity;
+    public Vector2 velocity;
 
     private void Start () { 
         _ballCollider = GetComponent<Collider2D>();
+        _ballBody = GetComponent<Rigidbody2D>();
+        _ballBody.gravityScale = gravity;
+    }
+
+    void FixedUpdate () { 
+        transform.Translate (velocity * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {

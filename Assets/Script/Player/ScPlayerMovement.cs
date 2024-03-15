@@ -18,7 +18,7 @@ public class ScPlayerMovement : MonoBehaviour {
 
     [Header("Mouvements")]
     public float speed;
-    private float horizontal;
+    private float _horizontal;
     public enum Facing { Left, Right};
     public Facing facing = Facing.Right;
     
@@ -38,12 +38,12 @@ public class ScPlayerMovement : MonoBehaviour {
         if (IsGrounded) { jumpNb = 0; IsAbleToJump = true; ScShoot.Instance.Reload(); }
         if (IsWalled) { jumpNb = 0; IsAbleToJump = true; }
         if (jumpNb >= jumpMax) { IsAbleToJump = false; }
-        _body.velocity = new Vector2(horizontal * speed, _body.velocity.y);
-        if (horizontal < 0){
+        _body.velocity = new Vector2(_horizontal * speed, _body.velocity.y);
+        if (_horizontal < 0){
             _spriteRenderer.flipX = true;
             facing = Facing.Left;
         }
-        else if (horizontal > 0) {
+        else if (_horizontal > 0) {
             _spriteRenderer.flipX = false;
             facing = Facing.Right;
         }
@@ -62,7 +62,7 @@ public class ScPlayerMovement : MonoBehaviour {
     }
 
     public void SideMovement(InputAction.CallbackContext ctx) {
-        horizontal = ctx.ReadValue<Vector2>().x;
+        _horizontal = ctx.ReadValue<Vector2>().x;
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
