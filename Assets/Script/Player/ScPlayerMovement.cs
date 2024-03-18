@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 
 public class ScPlayerMovement : MonoBehaviour {
     private Rigidbody2D _body;
+    private Transform _transform;
 
-    [Header("Jump")]
+    [Header("~~~~~~Jump~~~~~~")]
     public bool IsAbleToJump;
     public int jumpNb;
     public int jumpMax;
@@ -16,7 +17,7 @@ public class ScPlayerMovement : MonoBehaviour {
     private bool IsGrounded;
     private bool IsWalled;
 
-    [Header("Mouvements")]
+    [Header("~~~~~~Mouvements~~~~~~")]
     public float speed;
     private float _horizontal;
     public enum Facing { Left, Right};
@@ -30,6 +31,7 @@ public class ScPlayerMovement : MonoBehaviour {
     }
 
     private void Start(){
+        _transform = GetComponent<Transform>();
         _body = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -68,7 +70,8 @@ public class ScPlayerMovement : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.TryGetComponent(out ScGround component)) {
             if (component.type != ScGround.BlockType.wall) {
-                IsGrounded = true;
+                RaycastHit2D hit = Physics2D.Raycast(new Vector2(_transform.position.x, _transform.position.y+ 1), Vector2.up, 1f);
+                if(hit.collider == null) { IsGrounded = true; }
             }
             else { 
                 IsWalled = true;

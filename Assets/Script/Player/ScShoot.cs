@@ -6,7 +6,7 @@ public class ScShoot : MonoBehaviour{
     private Rigidbody2D _body;
     public enum GunType {normal,  laser, noppy, oppy, katana, shotgun, burst, machineGun, tripleShot}
 
-    [Header("Gun Stats")]
+    [Header("~~~~~~Gun Stats~~~~~~")]
     public GunType gunType;
     public int magazineSize;
     public int bulletLeft;
@@ -14,7 +14,7 @@ public class ScShoot : MonoBehaviour{
     public int bulletShoot;
     public int bulletShooted = 1;
 
-    [Header("Bullet Stats")]
+    [Header("~~~~~~Bullet Stats~~~~~~")]
     [SerializeField] Transform _shootPoint;
     [SerializeField] float _ballGravityScale;
     [SerializeField] float _ballSpeed;

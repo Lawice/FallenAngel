@@ -29,6 +29,10 @@ public class ScBalls : MonoBehaviour {
                     Destroy(collision.gameObject);
                     Destroy(this.gameObject);
                     break;
+                case ScGround.BlockType.crate:
+                    component.SpawnLoot();
+                    Destroy(this.gameObject);
+                    break;
                 case ScGround.BlockType.normal:
                     Destroy(this.gameObject);
                 break;

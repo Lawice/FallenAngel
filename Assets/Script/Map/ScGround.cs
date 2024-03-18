@@ -5,7 +5,17 @@ using UnityEngine;
 public class ScGround : MonoBehaviour {
     public enum BlockType { normal, semi, breakable, wall, crate}
     public BlockType type;
+
+    [Header("~~~~~~Sprite~~~~~~")]
+    public Sprite normal;
+    public Sprite semi;
+    public Sprite breakable;
+    public Sprite wall;
+    public Sprite crate;
     SpriteRenderer spriteRenderer;
+
+    [Header("~~~~~~Sprite~~~~~~")]
+    public GameObject upgradeLoot;
 
     private void Awake(){
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -18,21 +28,66 @@ public class ScGround : MonoBehaviour {
     void UpdateColor() {
         switch (type) {
             case BlockType.normal:
-                spriteRenderer.color = Color.green;
+                spriteRenderer.sprite = normal;
                 break;
             case BlockType.semi:
-                spriteRenderer.color = new Color(255f,106f, 0f);
+                spriteRenderer.sprite = semi;
                 break;
             case BlockType.breakable:
-                spriteRenderer.color = Color.cyan;
+                spriteRenderer.sprite = breakable;
                 break;
             case BlockType.wall:
-                spriteRenderer.color = Color.white;
+                spriteRenderer.sprite = wall;
                 break;
             case BlockType.crate:
-                spriteRenderer.color = Color.red;
+                spriteRenderer.sprite = crate;
                 break;
 
         }
     }
+
+    public void SpawnLoot(){
+        if (type == BlockType.crate) {
+            int randomType = Random.Range(0, 3);
+            int randomWeaponType = Random.Range(0, 9);
+            GameObject _newLoot = Instantiate(upgradeLoot, transform.position, Quaternion.identity);
+            ScLoot lootScript = _newLoot.GetComponent<ScLoot>();
+            switch(randomType) {
+                case 0:
+                    lootScript.type = ScLoot.Type.gem;
+                    break;
+                case 1:
+                    lootScript.type = ScLoot.Type.heart;
+                    break;
+            }
+            switch(randomWeaponType){
+                case 0:
+                    lootScript.weaponType = ScLoot.WeaponType.laser;
+                    break;
+                case 1:
+                    lootScript.weaponType = ScLoot.WeaponType.noppy;
+                    break;
+                case 2:
+                    lootScript.weaponType = ScLoot.WeaponType.oppy;
+                    break;
+                case 3:
+                    lootScript.weaponType = ScLoot.WeaponType.katana;
+                    break;
+                case 4:
+                    lootScript.weaponType = ScLoot.WeaponType.shotgun;
+                    break;
+                case 5:
+                    lootScript.weaponType = ScLoot.WeaponType.burst;
+                    break;
+                case 6:
+                    lootScript.weaponType = ScLoot.WeaponType.machineGun;
+                    break;
+                case 7:
+                    lootScript.weaponType = ScLoot.WeaponType.tripleShot;
+                    break;
+            }
+            Destroy(this.gameObject);
+        }   
+    }
 }
+
