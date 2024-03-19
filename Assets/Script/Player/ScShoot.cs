@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ScShoot : MonoBehaviour{
     private Rigidbody2D _body;
@@ -23,6 +24,10 @@ public class ScShoot : MonoBehaviour{
     int _bulletID;
     [SerializeField] int _horizontal;
 
+    [Header("~~~~~~Security Bomb~~~~~~")]
+    public GameObject bomb;
+    public int nbBomb = 3;
+
     public static ScShoot Instance;
     private void Awake() {
         if (Instance == null) { Instance = this; }
@@ -34,6 +39,15 @@ public class ScShoot : MonoBehaviour{
         bulletLeft = magazineSize;
         _horizontal = 1;
         _ballGravityScale = 1;
+    }
+
+    public void BombInput(InputAction.CallbackContext ctx){
+        if (ctx.performed) {
+            if (nbBomb > 0) {
+                Instantiate(bomb, _shootPoint.position, Quaternion.identity);
+                nbBomb--;
+            }
+        }
     }
 
     public void Shoot() {

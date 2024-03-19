@@ -37,7 +37,6 @@ public class ScMapCreation : MonoBehaviour {
             for (int x = -_width; x < _width + 1; x++){
                 float noise1 = Mathf.PerlinNoise(x * 0.2f + _seed, y * 0.2f + _seed);
                 float noise2 = Mathf.PerlinNoise(x * 0.2f + _seed2, y * 0.2f + _seed2);
-
                 if (noise1 > _chanceSpawn) {
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(x, y + 1), Vector2.up, 1f);
                     if (hit.collider == null){
@@ -82,6 +81,4 @@ public class ScMapCreation : MonoBehaviour {
                 break;
         }
     }
-
-
 }

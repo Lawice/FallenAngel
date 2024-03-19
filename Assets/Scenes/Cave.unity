@@ -1089,7 +1089,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 90996373}
@@ -1152,6 +1152,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ab587abc-bfac-42d4-988f-d290910b697d
     m_ActionName: InGame/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1552998088}
+        m_TargetAssemblyTypeName: ScShoot, Assembly-CSharp
+        m_MethodName: BombInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f692ba8-53e9-4da8-966f-b3ee0883f867
+    m_ActionName: InGame/Bomb[/Keyboard/b,/Keyboard/downArrow,/Keyboard/s]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: InGame
@@ -1200,7 +1216,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.95, y: 0.95}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1552998088
 MonoBehaviour:
@@ -1235,6 +1251,8 @@ MonoBehaviour:
   - {fileID: 1022512547073241637, guid: 2d636b811fa107b478d108fe94322923, type: 3}
   - {fileID: 1022512547073241637, guid: e61f640d978231649ab528f65d29f5e8, type: 3}
   _horizontal: 0
+  bomb: {fileID: 2804902142015538218, guid: f9c0677ad2fe46640ac80f140bd9ac0f, type: 3}
+  nbBomb: 3
 --- !u!1 &1630205464
 GameObject:
   m_ObjectHideFlags: 0

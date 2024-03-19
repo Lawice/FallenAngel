@@ -48,7 +48,7 @@ public class ScGround : MonoBehaviour {
 
     public void SpawnLoot(){
         if (type == BlockType.crate) {
-            int randomType = Random.Range(0, 3);
+            int randomType = Random.Range(0, 4);
             int randomWeaponType = Random.Range(0, 9);
             GameObject _newLoot = Instantiate(upgradeLoot, transform.position, Quaternion.identity);
             ScLoot lootScript = _newLoot.GetComponent<ScLoot>();
@@ -58,6 +58,9 @@ public class ScGround : MonoBehaviour {
                     break;
                 case 1:
                     lootScript.type = ScLoot.Type.heart;
+                    break;
+                case 2:
+                    lootScript.type= ScLoot.Type.securityBomb;
                     break;
             }
             switch(randomWeaponType){
