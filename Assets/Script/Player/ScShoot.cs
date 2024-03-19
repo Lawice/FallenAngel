@@ -78,7 +78,8 @@ public class ScShoot : MonoBehaviour{
                     Invoke("Shoot",0.1f);
                 }
                 else {
-                    bulletLeft -= chargesUse;
+                    if(bulletLeft % chargesUse == 0) { bulletLeft -= chargesUse; }
+                    else { bulletLeft -= bulletLeft % chargesUse; }
                     bulletShooted = 1;
                 }
                 Destroy(_bullet, 2f);

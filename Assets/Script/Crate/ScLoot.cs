@@ -6,19 +6,21 @@ public class ScLoot : MonoBehaviour {
     public enum Type {gem, heart, securityBomb };
     public Type type;
 
-    public enum WeaponType {laser, noppy, oppy, katana, shotgun, burst, machineGun, tripleShot }
-    public WeaponType weaponType;
+    public ScShoot.GunType weaponType;
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.TryGetComponent(out ScShoot shootScript)) {
-            ScScore scoreScript = collision.gameObject.GetComponent<ScScore>();
+            ScHeal scoreScript = collision.gameObject.GetComponent<ScHeal>();
+            shootScript.gunType = weaponType;
+            ScShoot.Instance.Weapon();
             switch (type) {
                 case Type.gem:
 
                     break;
-                    
+                 
 
             }
+            Destroy(this.gameObject);
         }
     }
 }
