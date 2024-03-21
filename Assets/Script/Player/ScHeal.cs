@@ -18,6 +18,12 @@ public class ScHeal : MonoBehaviour {
     public Sprite emptyHeart2;
     public Sprite emptyHeart3;
 
+    public static ScHeal Instance;
+    private void Awake() {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(this); }
+    }
+
     private void Update(){
         for (int u = 0; u < hearts.Length; u++) {
             if(u < playerHP) {
@@ -43,6 +49,15 @@ public class ScHeal : MonoBehaviour {
 
         if(playerHP > maxPlayerHP) { 
             playerHP = maxPlayerHP;
+        }
+    }
+
+    public void Heal() { 
+        if (playerHP + 1 > maxPlayerHP) {
+            maxPlayerHP ++;
+        }
+        else {
+            playerHP ++;
         }
     }
 }

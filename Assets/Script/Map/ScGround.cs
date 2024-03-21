@@ -22,6 +22,9 @@ public class ScGround : MonoBehaviour {
     }
 
     public void Start() {
+        if (type  == BlockType.crate){
+
+        }
         UpdateColor();
     }
 
@@ -95,9 +98,9 @@ public class ScGround : MonoBehaviour {
                         lootScript.weaponType = ScShoot.GunType.tripleShot;
                         break;
                 }
-                Destroy(this.gameObject);
             }
-        }   
+            Destroy(this.gameObject);
+        }
     }
 }
 

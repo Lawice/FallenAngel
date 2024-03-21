@@ -15,13 +15,13 @@ public class ScBalls : MonoBehaviour {
         _ballBody.gravityScale = gravity;
     }
 
-    void FixedUpdate () { 
+    void FixedUpdate () {
         transform.Translate (velocity * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.TryGetComponent(out ScGround component)) {
-            switch (component.type) {
+        if (collision.gameObject.TryGetComponent(out ScGround groundScript)) {
+            switch (groundScript.type) {
                 case ScGround.BlockType.semi:
                     Physics2D.IgnoreCollision(collision.collider, _ballCollider, true);
                     break;
@@ -30,7 +30,7 @@ public class ScBalls : MonoBehaviour {
                     Destroy(this.gameObject);
                     break;
                 case ScGround.BlockType.crate:
-                    component.SpawnLoot();
+                    groundScript.SpawnLoot();
                     Destroy(this.gameObject);
                     break;
                 case ScGround.BlockType.normal:

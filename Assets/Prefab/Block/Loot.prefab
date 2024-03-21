@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6328573357675541532}
   - component: {fileID: 4712172130233597256}
   - component: {fileID: -868661805703806004}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Loot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,3 +145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   weaponType: 0
+  gem: {fileID: 21300000, guid: f18458fb7ba028043a2380a17c6c77a2, type: 3}
+  heart: {fileID: 21300000, guid: bf28ad85f85deaf45b5f24d8b4ddbb2d, type: 3}
+  securityBomb: {fileID: 21300000, guid: aa3627dc72b3dff44a712a84d0b0a195, type: 3}

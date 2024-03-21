@@ -41,7 +41,8 @@ public class ScMapCreation : MonoBehaviour {
                     RaycastHit2D hit = Physics2D.Raycast(new Vector2(x, y + 1), Vector2.up, 1f);
                     if (hit.collider == null){
                         if (Random.value < _chanceSpawnCrate) {
-                            Generate(new Vector2(x, y + 1), ScGround.BlockType.crate);
+                            RaycastHit2D hit2 = Physics2D.Raycast(new Vector2(x,y), Vector2.up, 0f);
+                            if (hit2.collider == null) { Generate(new Vector2(x, y + 1), ScGround.BlockType.crate); }
                         }
                         else{
                             if (noise2 > _chanceSpawnBreakable) { 
