@@ -60,4 +60,10 @@ public class ScHeal : MonoBehaviour {
             playerHP ++;
         }
     }
+
+    public void TakeDamage(int _damage) { 
+        if(playerHP-_damage < 0) { 
+            playerHP -= _damage;
+        }
+    }
 }

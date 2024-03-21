@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScBumper : MonoBehaviour {
-    [SerializeField] public Transform playerTrans;
+    public GameObject player;
+    private Transform _playerTrans;
     [SerializeField] private float _speed;
     [SerializeField] private float _detectionRange;
     Transform _transform;
 
     private void Start() {
+        _playerTrans = player.GetComponent<Transform>();
         _transform = GetComponent<Transform>();
     }
 
     private void Update() {
-        if(playerTrans != null) { Chase(); }
+        if(_playerTrans != null) { Chase(); }
     }
 
-    private void Chase() { 
-        float _currentDistanceFromPlayer = Vector2.Distance(playerTrans.position, _transform.position);
-        if(_currentDistanceFromPlayer < _detectionRange) {  _transform.position = Vector2.MoveTowards(_transform.position, playerTrans.position,_speed*Time.deltaTime);}
+    private void Chase() {
+        Debug.Log(_playerTrans);
+        float _currentDistanceFromPlayer = Vector2.Distance(_playerTrans.position, _transform.position);
+        if(_currentDistanceFromPlayer < _detectionRange) {  _transform.position = Vector2.MoveTowards(_transform.position, _playerTrans.position,_speed*Time.deltaTime);}
     }
 }
