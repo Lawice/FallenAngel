@@ -69,14 +69,15 @@ public class ScPlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.TryGetComponent(out ScGround component)) {
-            if (component.type != ScGround.BlockType.wall) {
-                RaycastHit2D hit = Physics2D.Raycast(new Vector2(_transform.position.x, _transform.position.y+ 1), Vector2.up, 0.5f);
-                if(hit.collider == null) { IsGrounded = true; }
-            }
-            else { 
+            if (component.type == ScGround.BlockType.wall) {
                 IsWalled = true;
             }
         }
     }
+
+     public void CheckGround() {
+        RaycastHit2D _hit = Physics2D.Raycast(new Vector2(_transform.position.x, _transform.position.y - 1), Vector2.up, -0.5f);
+        if (_hit.collider !=null) { IsGrounded = true; }
+     }
 
 }

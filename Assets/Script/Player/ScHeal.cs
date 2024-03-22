@@ -19,9 +19,19 @@ public class ScHeal : MonoBehaviour {
     public Sprite emptyHeart3;
 
     public static ScHeal Instance;
+
+    [Header("~~~~~~Invincibilty~~~~~~")]
+    public float invincibilityDura = 2f;
+    public bool isInvincible = false;
+    private Renderer _playerRenderer;
+
     private void Awake() {
         if (Instance == null) { Instance = this; }
         else { Destroy(this); }
+    }
+
+    private void Start() {
+        _playerRenderer = GetComponent<Renderer>();
     }
 
     private void Update(){
@@ -50,6 +60,8 @@ public class ScHeal : MonoBehaviour {
         if(playerHP > maxPlayerHP) { 
             playerHP = maxPlayerHP;
         }
+        Debug.Log(isInvincible); 
+        if (playerHP <= 0) { Destroy(this.gameObject); }
     }
 
     public void Heal() { 
@@ -61,9 +73,35 @@ public class ScHeal : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(int _damage) { 
-        if(playerHP-_damage < 0) { 
-            playerHP -= _damage;
+
+    public void TakeDamage(int _damage) {
+        if (!isInvincible) {
+            if(playerHP-_damage > 0) { 
+                playerHP -= _damage;
+                StartInvincibility();
+            }
+            else { 
+                playerHP = 0;
+            }
         }
+    }
+
+    void StartInvincibility(){
+        if (!isInvincible) {
+            invincibilityDura = 2f;
+            StartCoroutine(Invincibility());
+        }
+    }
+
+    IEnumerator Invincibility() {
+        isInvincible = true;
+
+        while (invincibilityDura > 0){
+            _playerRenderer.enabled = !_playerRenderer.enabled;
+            yield return new WaitForSeconds(0.2f); 
+            invincibilityDura -= 0.2f;
+        }
+        isInvincible = false;
+        _playerRenderer.enabled = true;
     }
 }

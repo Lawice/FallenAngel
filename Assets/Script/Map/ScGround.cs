@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,9 +23,6 @@ public class ScGround : MonoBehaviour {
     }
 
     public void Start() {
-        if (type  == BlockType.crate){
-
-        }
         UpdateColor();
     }
 
@@ -51,56 +49,46 @@ public class ScGround : MonoBehaviour {
 
     public void SpawnLoot(){
         if (type == BlockType.crate) {
-            int randomType = Random.Range(0, 8);
-            int randomWeaponType = Random.Range(0, 9);
+            int randomType = UnityEngine.Random.Range(0, 8);
+            int randomWeaponType = UnityEngine.Random.Range(0, 9);
             GameObject _newLoot = Instantiate(upgradeLoot, transform.position, Quaternion.identity);
-            ScLoot lootScript = _newLoot.GetComponent<ScLoot>();
+            ScLoot _lootScript = _newLoot.GetComponent<ScLoot>();
             switch(randomType) {
                 case 0:
                 case 1:
                 case 2:
                 case 3:
-                    lootScript.type = ScLoot.Type.gem;
+                    _lootScript.type = ScLoot.Type.gem;
                     break;
                 case 4:
                 case 5:
                 case 6:
-                    lootScript.type = ScLoot.Type.heart;
+                    _lootScript.type = ScLoot.Type.heart;
                     break;
                 case 7:
-                    lootScript.type= ScLoot.Type.securityBomb;
+                    if (ScShoot.Instance.nbBomb < ScShoot.Instance.maxBomb) { _lootScript.type = ScLoot.Type.securityBomb; }
+                    else { _lootScript.type = ScLoot.Type.gem; }
                     break;
             }
-            if (randomType != 7) {
-                switch (randomWeaponType) {
-                    case 0:
-                        lootScript.weaponType = ScShoot.GunType.laser;
-                        break;
-                    case 1:
-                        lootScript.weaponType = ScShoot.GunType.noppy;
-                        break;
-                    case 2:
-                        lootScript.weaponType = ScShoot.GunType.oppy;
-                        break;
-                    case 3:
-                        lootScript.weaponType = ScShoot.GunType.katana;
-                        break;
-                    case 4:
-                        lootScript.weaponType = ScShoot.GunType.shotgun;
-                        break;
-                    case 5:
-                        lootScript.weaponType = ScShoot.GunType.burst;
-                        break;
-                    case 6:
-                        lootScript.weaponType = ScShoot.GunType.machineGun;
-                        break;
-                    case 7:
-                        lootScript.weaponType = ScShoot.GunType.tripleShot;
-                        break;
-                }
+            if (_lootScript.type != ScLoot.Type.securityBomb){
+                ScShoot.GunType newType = RandomUpgrade();
+                do { newType = RandomUpgrade();
+                } while (ScShoot.Instance.gunType == newType);
+
+                _lootScript.weaponType = newType;
             }
+
             Destroy(this.gameObject);
         }
     }
+
+    public ScShoot.GunType RandomUpgrade() {
+        System.Random random = new System.Random();
+        ScShoot.GunType[] gunTypes = (ScShoot.GunType[])System.Enum.GetValues(typeof(ScShoot.GunType));
+        int randomID = random.Next(gunTypes.Length);
+        return gunTypes[randomID];
+    }
 }
+
+
 

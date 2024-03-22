@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5897319975247990909}
   - component: {fileID: 6381990545727051831}
   - component: {fileID: -6456514802815930679}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TripleShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 448
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

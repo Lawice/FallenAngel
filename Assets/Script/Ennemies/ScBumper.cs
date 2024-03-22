@@ -19,7 +19,6 @@ public class ScBumper : MonoBehaviour {
     }
 
     private void Chase() {
-        Debug.Log(_playerTrans);
         float _currentDistanceFromPlayer = Vector2.Distance(_playerTrans.position, _transform.position);
         if(_currentDistanceFromPlayer < _detectionRange) {  _transform.position = Vector2.MoveTowards(_transform.position, _playerTrans.position,_speed*Time.deltaTime);}
     }

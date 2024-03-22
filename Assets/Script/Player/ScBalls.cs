@@ -19,14 +19,14 @@ public class ScBalls : MonoBehaviour {
         transform.Translate (velocity * Time.deltaTime);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.TryGetComponent(out ScGround groundScript)) {
+    private void OnCollisionEnter2D(Collision2D _collision) {
+        if (_collision.gameObject.TryGetComponent(out ScGround groundScript)) {
             switch (groundScript.type) {
                 case ScGround.BlockType.semi:
-                    Physics2D.IgnoreCollision(collision.collider, _ballCollider, true);
+                    Physics2D.IgnoreCollision(_collision.collider, _ballCollider, true);
                     break;
                 case ScGround.BlockType.breakable:
-                    Destroy(collision.gameObject);
+                    Destroy(_collision.gameObject);
                     Destroy(this.gameObject);
                     break;
                 case ScGround.BlockType.crate:
@@ -38,5 +38,9 @@ public class ScBalls : MonoBehaviour {
                 break;
             }
         }
+        if(_collision.gameObject.TryGetComponent(out ScEnemy enemyScript)) {
+            enemyScript.PV -= damage;
+        }
     }
+    
 }
