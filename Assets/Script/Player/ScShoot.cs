@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEditor.Search;
-using UnityEditor.Experimental.GraphView;
 
 public class ScShoot : MonoBehaviour{
     private Rigidbody2D _body;
